@@ -197,7 +197,6 @@
     window.track && window.track("booking_done", { master, services: b.services.join(","), total: b.total });
     drawDone(b);
     go(5);
-    drawMine();
   }
 
   function drawDone(b) {
@@ -229,22 +228,6 @@
     window.track && window.track("booking_ics");
   }
 
-  function drawMine() {
-    const box = $("#my-bookings");
-    const today = Slots.dayKey(new Date());
-    const list = Slots.bookings().filter((b) => b.date >= today).sort((a, b) => (a.date + a.start).localeCompare(b.date + b.start));
-    box.hidden = !list.length;
-    if (!list.length) return;
-    $("#my-list").innerHTML = list.map((b) => {
-      const dt = Slots.keyToDate(b.date);
-      return `<div class="mb">
-        <div class="mb__date"><b>${dt.getDate()}</b><small>${dt.toLocaleDateString("ru-RU", { month: "short" }).replace(".", "")} · ${Slots.idxToTime(b.start)}</small></div>
-        <div class="mb__info"><b>${b.services.map((id) => svcById(id).name).join(", ")}</b><span>${esc(masterName(b.master))} · ${b.from ? "от " : ""}${fmt(b.total)} ₽</span></div>
-        <button class="btn btn--sm btn--ghost" type="button" data-cancel="${b.id}">Отменить</button>
-      </div>`;
-    }).join("");
-  }
-
   root.addEventListener("click", (e) => {
     const t = e.target.closest("button, a");
     if (!t) return;
@@ -274,13 +257,6 @@
       $("#booking-form").reset();
       drawServices(); go(1);
     }
-    if (t.dataset.cancel) {
-      Slots.saveBookings(Slots.bookings().filter((b) => b.id !== t.dataset.cancel));
-      window.track && window.track("booking_cancel");
-      toast("Запись отменена — окно снова свободно");
-      drawMine();
-      if (state.step === 3) drawDates();
-    }
     if (t.id === "sum-toggle") $(".summary", root).classList.toggle("is-open");
   });
 
@@ -294,6 +270,5 @@
 
   drawServices();
   drawMasters();
-  drawMine();
   go(state.services.size && state.master ? 3 : state.services.size ? 2 : 1);
 })();
