@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Онлайн-запись — барбершоп «Самурай», Краснодар</title>
+  <meta name="description" content="Запишитесь в барбершоп «Самурай» онлайн: выберите услугу, мастера и свободное окно.">
+  <meta name="theme-color" content="#0E0E10">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Oswald:wght@500;600&family=Unbounded:wght@400;500&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="booking">
+  <main>
+    <section class="page-hero seigaiha">
+      <div class="page-hero__art" aria-hidden="true"><div class="page-hero__sun"></div><div class="page-hero__mark" data-samurai></div></div>
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span>/</span><span>Запись</span></nav>
+        <p class="eyebrow reveal">Онлайн-запись</p>
+        <h1 class="h1 reveal">Запись</h1>
+        <p class="lead reveal">Четыре шага: услуга, мастер, свободное окно, контакты. Меньше минуты — и место в кресле ваше.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap booking" id="booking">
+        <div>
+          <div class="steps">
+            <button class="step-tab" type="button" data-step="1"><span><b>01</b>Услуги</span></button>
+            <button class="step-tab" type="button" data-step="2"><span><b>02</b>Мастер</span></button>
+            <button class="step-tab" type="button" data-step="3"><span><b>03</b>Дата и время</span></button>
+            <button class="step-tab" type="button" data-step="4"><span><b>04</b>Контакты</span></button>
+          </div>
+
+          <div class="step-panel" data-step="1">
+            <div class="step-title"><h2 class="h3">Что делаем?</h2><span class="muted">Можно выбрать несколько услуг</span></div>
+            <div id="svc-list"></div>
+            <div class="step-nav"><a class="btn btn--ghost" href="services.html">Подробнее о ценах</a><button class="btn" type="button" id="next-1">Выбрать мастера<i class="ti ti-arrow-right"></i></button></div>
+          </div>
+
+          <div class="step-panel" data-step="2">
+            <div class="step-title"><h2 class="h3">К кому идём?</h2><span class="muted">Рядом — ближайшее свободное окно</span></div>
+            <div class="barber-list" id="master-list"></div>
+            <div class="step-nav"><button class="btn btn--ghost" type="button" data-back="1"><i class="ti ti-arrow-left"></i>Назад</button><button class="btn" type="button" id="next-2">Выбрать время<i class="ti ti-arrow-right"></i></button></div>
+          </div>
+
+          <div class="step-panel" data-step="3">
+            <div class="step-title"><h2 class="h3">Свободные окна</h2><span class="muted" id="slot-caption"></span></div>
+            <div class="dates" id="date-list"></div>
+            <div class="slots-head"><span class="muted">Время начала визита</span><span class="legend"><span><i style="background:var(--ink-3);border:1px solid var(--line)"></i>свободно</span><span><i style="border:1px dashed var(--paper-3)"></i>занято</span><span><i style="background:var(--red)"></i>ваш выбор</span></span></div>
+            <div id="slot-list"></div>
+            <div class="step-nav"><button class="btn btn--ghost" type="button" data-back="2"><i class="ti ti-arrow-left"></i>Назад</button><button class="btn" type="button" id="next-3">Указать контакты<i class="ti ti-arrow-right"></i></button></div>
+          </div>
+
+          <div class="step-panel" data-step="4">
+            <div class="step-title"><h2 class="h3">Как с вами связаться?</h2><span class="muted">Напомним о визите накануне</span></div>
+            <form id="booking-form" novalidate>
+              <div class="form-grid">
+                <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="given-name" placeholder="Как к вам обращаться"><span class="field__err"></span></div>
+                <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"><span class="field__err"></span></div>
+                <div class="field field--full"><label for="f-comment">Комментарий мастеру</label><textarea id="f-comment" name="comment" placeholder="Например: хочу как на референсе, принесу фото"></textarea></div>
+                <div class="field field--full">
+                  <label class="check"><input type="checkbox" id="f-agree"> <span>Согласен на обработку персональных данных для записи и напоминания о визите</span></label>
+                  <span class="field__err" id="agree-err"></span>
+                </div>
+              </div>
+              <div class="step-nav"><button class="btn btn--ghost" type="button" data-back="3"><i class="ti ti-arrow-left"></i>Назад</button><button class="btn" type="button" id="confirm" data-goal="booking_submit"><i class="ti ti-check"></i>Записаться</button></div>
+            </form>
+          </div>
+
+          <div class="step-panel" data-step="5">
+            <div class="done">
+              <div class="done__seal" data-samurai></div>
+              <p class="eyebrow" style="justify-content:center">Запись подтверждена</p>
+              <h2 class="h2"><span id="done-name"></span>, ждём вас</h2>
+              <p class="lead" style="margin-inline:auto">Это демо-макет: запись сохранена в браузере, окно стало занятым. На боевом сайте здесь будет передача в CRM и SMS-напоминание.</p>
+              <div class="ticket" id="ticket"></div>
+              <div class="done__actions">
+                <button class="btn" type="button" id="ics"><i class="ti ti-calendar-plus"></i>Добавить в календарь</button>
+                <a class="btn btn--ghost" data-c="yandex" href="#" target="_blank" rel="noopener" data-goal="route_yandex"><i class="ti ti-route"></i>Маршрут</a>
+                <button class="btn btn--ghost" type="button" id="again">Новая запись</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="my-bookings" id="my-bookings" hidden>
+            <p class="eyebrow">Мои записи</p>
+            <div class="my-bookings__list" id="my-list"></div>
+          </div>
+        </div>
+
+        <aside class="summary" aria-label="Ваша запись">
+          <div class="summary__head"><b>Ваша запись</b><span data-samurai></span></div>
+          <div class="summary__body">
+            <div class="sum-row"><i class="ti ti-scissors"></i><div><small>Услуги</small><div id="sum-services"></div></div></div>
+            <div class="sum-row"><i class="ti ti-user"></i><div><small>Мастер</small><div id="sum-master"></div></div></div>
+            <div class="sum-row"><i class="ti ti-calendar-event"></i><div><small>Дата и время</small><div id="sum-time"></div></div></div>
+            <div class="sum-total"><span>Итого</span><b id="sum-total">0 ₽</b></div>
+            <span id="sum-mobile-total" hidden></span>
+            <p class="muted" style="font-size:13px;margin:14px 0 0">Оплата после визита: наличные, перевод или QR. Отменить запись можно в любой момент.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/analytics.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/booking.js"></script>
+</body>
+</html>
